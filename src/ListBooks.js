@@ -8,8 +8,23 @@ class ListBooks extends Component {
         books: PropTypes.array.isRequired
     }
 
+    constructor() {
+        super();
+        this.handleData = this.handleData.bind(this);
+        this.state = {
+          fromChild: ''
+        };
+      }
+
+    handleData(data) {
+        this.setState({
+            fromChild: data
+        });
+    }
+
     render() {
         const { books } = this.props
+        console.log(this.props)
 
         let showingBooks
         showingBooks = books
@@ -18,6 +33,9 @@ class ListBooks extends Component {
             <div className="list-books">
                 <div className="list-books-title">
                     <h1>MyReads</h1>
+                    <div>
+                        <h2>Received by parent:<br />{this.state.fromChild}</h2>
+                    </div>
                 </div>
 
                 <div className="list-books-content">
@@ -27,7 +45,7 @@ class ListBooks extends Component {
                         <ol className="books-grid">
                             {showingBooks.filter(book => book.shelf === 'currentlyReading').map((book) => (
                                 <li key={book.id}>
-                                    <Book book={ book }  />
+                                    <Book book={ book } handlerFromParant={this.handleData} />
                                 </li>
                             ))}
                         </ol>
@@ -40,7 +58,7 @@ class ListBooks extends Component {
                         <ol className="books-grid">
                             {showingBooks.filter(book => book.shelf === 'wantToRead').map((book) => (
                                 <li key={book.id}>
-                                    <Book book={ book } />
+                                    <Book book={ book }  handlerFromParant={this.handleData}/>
                                 </li>
                             ))}
                         </ol>
@@ -53,7 +71,7 @@ class ListBooks extends Component {
                         <ol className="books-grid">
                             {showingBooks.filter(book => book.shelf === 'read').map((book) => (
                                 <li key={book.id}>
-                                    <Book book={ book } />
+                                    <Book book={ book }  handlerFromParant={this.handleData}/>
                                 </li>
                             ))}
                         </ol>
