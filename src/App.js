@@ -19,11 +19,13 @@ class BooksApp extends React.Component {
 
 
   render() {
+    let books = this.state.books
+
     return (
       <BrowserRouter>
         <div className="app">
           <Route exact path='/' render={() => (
-            <ListBooks books={this.state.books}/>
+            <ListBooks books={ books }/>
           )}/>
           <Route path='/search' render={({ history }) => (
             <Search onAddBook />
