@@ -44,7 +44,7 @@ class Book extends Component {
     const { book } = this.props
     const { shelf } = this.props.book.shelf
 
-    console.log('Book.js book from this.props: ' + book.shelf);
+    // console.log('Book.js book from this.props: ' + book.shelf);
 
     return (
       <div className="book">
