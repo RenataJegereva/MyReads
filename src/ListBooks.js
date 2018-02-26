@@ -9,15 +9,15 @@ class ListBooks extends Component {
         books: PropTypes.array.isRequired
     }
 
-    state = {
-        books: this.props.books
-    }
-
     changeShelf = (book, shelf) => {
         BooksAPI.update(book, shelf).then(() => {
             BooksAPI.getAll().then(books => this.setState({ books }))
         })
         console.log('listbooks.js on change shelf: ' + book.title, shelf);
+    }
+
+    state = {
+        books: this.props.books
     }
 
     render() {
