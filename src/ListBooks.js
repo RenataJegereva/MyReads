@@ -13,7 +13,7 @@ class ListBooks extends Component {
         BooksAPI.update(book, shelf).then(() => {
             BooksAPI.getAll().then(books => this.setState({ books }))
         })
-        console.log('listbooks.js on change shelf: ' + book.title, shelf);
+        // console.log('listbooks.js on change shelf: ' + book.title, shelf);
     }
 
     state = {
