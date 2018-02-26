@@ -13,14 +13,14 @@ class BooksApp extends React.Component {
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
       this.setState({ books })
-      // console.log(books);
+      // console.log('App.js componentDidMount books ' + books);
     })
   }
 
 
   render() {
     let books = this.state.books
-
+    // console.log('App.js render books ' + books);
     return (
       <BrowserRouter>
         <div className="app">
@@ -28,7 +28,7 @@ class BooksApp extends React.Component {
             <ListBooks books={ books }/>
           )}/>
           <Route path='/search' render={({ history }) => (
-            <Search onAddBook />
+            <Search />
           )}/>
         </div>
       </BrowserRouter>

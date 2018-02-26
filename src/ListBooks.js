@@ -2,14 +2,27 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import Book from './Book'
+import * as BooksAPI from './utils/BooksAPI'
 
 class ListBooks extends Component {
     static propTypes = {
         books: PropTypes.array.isRequired
     }
 
+    state = {
+        books: this.props.books
+    }
+
+    changeShelf = (book, shelf) => {
+        BooksAPI.update(book, shelf).then(() => {
+            BooksAPI.getAll().then(books => this.setState({ books }))
+        })
+        console.log('listbooks.js on change shelf: ' + book.title, shelf);
+    }
+
     render() {
         const { books } = this.props
+        // console.log('changeshelf in ListBooks is ' + this.changeShelf);
 
         let showingBooks
         showingBooks = books
@@ -27,7 +40,7 @@ class ListBooks extends Component {
                         <ol className="books-grid">
                             {showingBooks.filter(book => book.shelf === 'currentlyReading').map((book) => (
                                 <li key={book.id}>
-                                    <Book book={ book }  />
+                                    <Book book={ book } onChangeShelf={ this.changeShelf }  />
                                 </li>
                             ))}
                         </ol>
@@ -40,7 +53,7 @@ class ListBooks extends Component {
                         <ol className="books-grid">
                             {showingBooks.filter(book => book.shelf === 'wantToRead').map((book) => (
                                 <li key={book.id}>
-                                    <Book book={ book } />
+                                    <Book book={ book }  onChangeShelf={ this.changeShelf }  />
                                 </li>
                             ))}
                         </ol>
@@ -53,7 +66,7 @@ class ListBooks extends Component {
                         <ol className="books-grid">
                             {showingBooks.filter(book => book.shelf === 'read').map((book) => (
                                 <li key={book.id}>
-                                    <Book book={ book } />
+                                    <Book book={ book }  onChangeShelf={ this.changeShelf }  />
                                 </li>
                             ))}
                         </ol>
