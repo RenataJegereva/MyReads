@@ -26,7 +26,7 @@ class Book extends Component {
   submitHandler(evt) {
     evt.preventDefault();
     // pass the input field value to the event handler passed
-    // as a prop by the parent (App)
+    // as a prop by the parent (ListBooks)
     this.props.handlerFromParant(this.state.inputField);
 
     this.setState({
