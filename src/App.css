@@ -8,6 +8,17 @@ body, .app {
   background: white;
 }
 
+option {
+  background: #ffffff;
+  color: #000;
+}
+
+select option:checked {
+  background: linear-gradient(#ff0000, #ff0000);
+  -webkit-text-fill-color: #fff;
+  color: #ff0000;
+}
+
 /* main page */
 
 .list-books-title {

@@ -11,18 +11,29 @@ class Search extends Component {
 
 
   updateSearch = (query) => {
-      this.setState({query: query})
+    this.setState({query: query})
+    if (query ==='') {
+        this.setState({results: []})
+        return
+    }
+    BooksAPI.search(query).then((results) => {
+        if(this.state.query === query && results ) {
+            this.setState({books: results})
+        }
+    })
 
-      BooksAPI.search(query).then((results) => {
-          if(this.state.query === query && results ) {
-              this.setState({books: results})
-          }
-      })
+  }
+
+  onChangeShelf = (book, shelf) => {
+    BooksAPI.update(book, shelf).then(() => {
+        BooksAPI.getAll().then(books => this.setState({ books }))
+    })
   }
 
 
   render() {
     const {books, query} = this.state
+    console.log('books are: ' + books);
 
     return(
       <div className="search-books">
@@ -41,7 +52,7 @@ class Search extends Component {
                   <div className="book-top">
                   <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
                   <div className="book-shelf-changer">
-                    <select value={book.shelf}>
+                    <select value={book.shelf} onChange={(event) => this.onChangeShelf(book, event.target.value)} >
                       <option value="none" disabled>Move to...</option>
                       <option value="currentlyReading">Currently Reading</option>
                       <option value="wantToRead">Want to Read</option>
