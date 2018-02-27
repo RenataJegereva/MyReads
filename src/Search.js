@@ -33,9 +33,9 @@ class Search extends Component {
 
   render() {
     const {books, query} = this.state
-    console.log('books are: ' + books);
-
+    console.log(books)
     return(
+
       <div className="search-books">
         <div className="search-books-bar">
           <Link className='close-search' to='/'>Close</Link>
@@ -52,7 +52,7 @@ class Search extends Component {
                   <div className="book-top">
                   <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
                   <div className="book-shelf-changer">
-                    <select value={book.shelf} onChange={(event) => this.onChangeShelf(book, event.target.value)} >
+                    <select value={book.shelf !== 'none' ? book.shelf : ''} onChange={(event) => this.onChangeShelf(book, event.target.value)} >
                       <option value="none" disabled>Move to...</option>
                       <option value="currentlyReading">Currently Reading</option>
                       <option value="wantToRead">Want to Read</option>
