@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import * as BooksAPI from './utils/BooksAPI'
 
-
 class Search extends Component {
+  static propTypes = {
+    booksOnShelves: PropTypes.array.isRequired,
+    onChangeShelf: PropTypes.func.isRequired
+  }
+
   state = {
     books: [],
     query:''
   }
-
 
   updateSearch = (query) => {
     this.setState({query: query})
@@ -21,26 +25,24 @@ class Search extends Component {
             this.setState({books: results})
         }
     })
-
   }
 
-  onChangeShelf = (book, shelf) => {
-    BooksAPI.update(book, shelf).then(() => {
-        BooksAPI.getAll().then(books => this.setState({ books }))
-    })
+  getExistingShelf = (bookOnShelf, book) => {
+    // console.log(bookOnShelf.title, bookOnShelf.id);
+    const shelf = bookOnShelf.id === book.id ? bookOnShelf.shelf : 'none'
   }
 
 
-  render(props) {
+  render() {
     const {books, query} = this.state
-    // console.log(props.booksOnShelves)
-    return(
+    const {booksOnShelves, onChangeShelf} =  this.props
 
+    return(
       <div className="search-books">
         <div className="search-books-bar">
           <Link className='close-search' to='/'>Close</Link>
           <div className="search-books-input-wrapper">
-          <input type="text" value={query} placeholder="Search by title or author" onChange={(event) => this.updateSearch(event.target.value)} />
+          <input type="text" value={query} placeholder="Search by title or author" onChange={(event) => (this.updateSearch(event.target.value))}  />
           </div>
         </div>
 
@@ -52,7 +54,9 @@ class Search extends Component {
                   <div className="book-top">
                   <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
                   <div className="book-shelf-changer">
-                    <select value={book.shelf !== 'none' ? book.shelf : ''} onChange={(event) => this.onChangeShelf(book, event.target.value)} >
+                    <select
+                      value={booksOnShelves.map((bookOnShelf) => this.getExistingShelf(bookOnShelf, book)) }
+                      onChange={(event) => onChangeShelf(book, event.target.value)} >
                       <option value="none" disabled>Move to...</option>
                       <option value="currentlyReading">Currently Reading</option>
                       <option value="wantToRead">Want to Read</option>

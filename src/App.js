@@ -21,6 +21,7 @@ class BooksApp extends React.Component {
           BooksAPI.getAll().then(books => this.setState({ books }))
       })
   }
+
   render() {
     return (
       <BrowserRouter>
@@ -29,7 +30,7 @@ class BooksApp extends React.Component {
             <ListBooks books={this.state.books} onChangeShelf={this.changeShelf} />
           )}/>
           <Route path='/search' render={({ history }) => (
-            <Search />
+            <Search booksOnShelves={this.state.books} onUpdateSearch={this.updateSearch} onChangeShelf={this.changeShelf} />
           )}/>
         </div>
       </BrowserRouter>
