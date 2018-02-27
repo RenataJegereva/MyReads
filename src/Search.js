@@ -31,9 +31,9 @@ class Search extends Component {
   }
 
 
-  render() {
+  render(props) {
     const {books, query} = this.state
-    console.log(books)
+    // console.log(props.booksOnShelves)
     return(
 
       <div className="search-books">
