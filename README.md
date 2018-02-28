@@ -1,5 +1,13 @@
 # MyReads Project
 
+The project is overcommented, which is not a reflection of a real-life scenario. The sole purpose of the vast number of comments is to demonstrate my thorough understanding of ReactJS UI rendering, state management and basic lifecycle as relevant to the level of knowledge required by the 'React Fundamentals' part of the course.
+
+GIT comments are concise: most of the information is displayed in the body of the commit message. This has originated from my initial misunderstanding of Udacity GIT styleguide provided. The branching of the project with self-explanatory branch names, all of the succesfull ones of which have been merged back into master, hopefully contain enough insights into my workflow.
+
+
+
+===================================================================
+
 This is the starter template for the final assessment project for Udacity's React Fundamentals course. The goal of this template is to save you time by providing a static example of the CSS and HTML markup that may be used, but without any of the React code that is needed to complete the project. If you choose to start with this template, your job will be to add interactivity to the app by refactoring the static code in this template.
 
 Of course, you are free to start this project from scratch if you wish! Just be sure to use [Create React App](https://github.com/facebookincubator/create-react-app) to bootstrap the project.
@@ -63,7 +71,7 @@ update(book, shelf)
 ```
 
 * book: `<Object>` containing at minimum an `id` attribute
-* shelf: `<String>` contains one of ["wantToRead", "currentlyReading", "read"]  
+* shelf: `<String>` contains one of ["wantToRead", "currentlyReading", "read"]
 * Returns a Promise which resolves to a JSON object containing the response data of the POST request
 
 ### `search`
