@@ -27,9 +27,11 @@ class Search extends Component {
     })
   }
 
-  getExistingShelf = (bookOnShelf, book) => {
-    // console.log(bookOnShelf.title, bookOnShelf.id);
-    const shelf = bookOnShelf.id === book.id ? bookOnShelf.shelf : 'none'
+ getExistingShelf = (booksOnShelves, book) => {
+    // console.log( books);
+    booksOnShelves.map((bookOnShelf) => {
+      return bookOnShelf.id === book.id ? bookOnShelf.shelf : 'none'
+    });
   }
 
 
@@ -55,7 +57,8 @@ class Search extends Component {
                   <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
                   <div className="book-shelf-changer">
                     <select
-                      value={booksOnShelves.map((bookOnShelf) => this.getExistingShelf(bookOnShelf, book)) }
+
+                      value={this.getExistingShelf(booksOnShelves, book)}
                       onChange={(event) => onChangeShelf(book, event.target.value)} >
                       <option value="none" disabled>Move to...</option>
                       <option value="currentlyReading">Currently Reading</option>
