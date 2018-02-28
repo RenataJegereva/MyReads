@@ -27,17 +27,16 @@ class Search extends Component {
     })
   }
 
- getExistingShelf = (booksOnShelves, book) => {
-    // console.log( books);
-    booksOnShelves.map((bookOnShelf) => {
-      return bookOnShelf.id === book.id ? bookOnShelf.shelf : 'none'
-    });
+ getExistingShelf = (book) => {
+   const searchBookID = book.id
+   const shelf = this.props.booksOnShelves.find(book => book.id === searchBookID )
+   return shelf !== undefined ? shelf.shelf : 'none'
   }
 
 
   render() {
     const {books, query} = this.state
-    const {booksOnShelves, onChangeShelf} =  this.props
+    const {onChangeShelf} =  this.props
 
     return(
       <div className="search-books">
@@ -56,10 +55,7 @@ class Search extends Component {
                   <div className="book-top">
                   <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
                   <div className="book-shelf-changer">
-                    <select
-
-                      value={this.getExistingShelf(booksOnShelves, book)}
-                      onChange={(event) => onChangeShelf(book, event.target.value)} >
+                    <select value={this.getExistingShelf(book)} onChange={(event) => onChangeShelf(book, event.target.value)} >
                       <option value="none" disabled>Move to...</option>
                       <option value="currentlyReading">Currently Reading</option>
                       <option value="wantToRead">Want to Read</option>
