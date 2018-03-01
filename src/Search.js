@@ -11,25 +11,28 @@ class Search extends Component {
 
   state = {
     books: [],
-    query:''
+    query:'',
+    message: ''
   }
 
   // event listener invokes this function on every onChange event
   // when a non-empty query string is received, promise returns results
   // these results are merged in the new state, which triggers component's internal state update and so rerenders DOM
   updateSearch = (query) => {
-    this.setState({query: query.trim()})
+    this.setState({query: query})
 
-    if(query.trim() !== ''){
-      BooksAPI.search(query).then(results => {
+    if (query.trim() !== ''){
+      BooksAPI.search(query).then((results) => {
         if(results.length > 0){
-          this.setState({
-            books: results
-          })
+          this.setState({books: results, message: ''})
+        } else {
+          this.setState({books: [], message: 'Sorry, your search returns no results'})
         }
       })
     } else {
-      this.setState({ books: []})
+      this.setState({
+        books: []
+      })
     }
   }
 
@@ -43,7 +46,7 @@ class Search extends Component {
   }
 
   render() {
-    const {books, query} = this.state
+    const {books, query, message} = this.state
     const {onChangeShelf} =  this.props
 
     return(
@@ -64,12 +67,13 @@ class Search extends Component {
 
         {/* a bit of code reused from Book component */}
         <div className="search-books-results">
+          <h2>{message}</h2>
           <ol className="books-grid">
             {books.map((book) => (
               <li key={ book.id }>
                 <div className="book">
                   <div className="book-top">
-                  <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${ book.imageLinks.smallThumbnail })` }}></div>
+                  <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${ book.imageLinks !== undefined ? book.imageLinks.smallThumbnail : "" })` }}></div>
                   <div className="book-shelf-changer">
                     {/* selected active dropdown option is set if the book has a shelf already;
                     the event listener takes in current book and its current shelf parameters and envokes changeShelf function in App.js*/}
