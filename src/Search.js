@@ -27,11 +27,10 @@ class Search extends Component {
           this.setState({books: results, message: ''})
         } else {
           this.setState({books: [], message: 'Sorry, your search returns no results'})
-          return results
         }
       })
     } else {
-      this.setState({books: []})
+      this.setState({books: [], message: ''})
     }
   }
 
