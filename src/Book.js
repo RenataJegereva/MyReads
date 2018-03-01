@@ -7,7 +7,7 @@ function Book (props) {
       <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${ props.book.imageLinks !== undefined ? props.book.imageLinks.smallThumbnail : "" })` }}></div>
       <div className="book-shelf-changer">
         <select
-          value={ props.book.shelf }
+          value={ props.book.shelf !== undefined ? props.book.shelf : props.getExistingShelf(props.book) }
           onChange={
             (event) => (props.onChangeShelf(props.book, event.target.value))
           }>
