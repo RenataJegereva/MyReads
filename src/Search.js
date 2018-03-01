@@ -19,15 +19,18 @@ class Search extends Component {
   // these results are merged in the new state, which triggers component's internal state update and so rerenders DOM
   updateSearch = (query) => {
     this.setState({query: query.trim()})
-    if (query ==='') {
-        this.setState({results: []})
-        return
-    }
-    BooksAPI.search(query).then((results) => {
-        if(this.state.query === query && results ) {
-            this.setState({books: results})
+
+    if(query.trim() !== ''){
+      BooksAPI.search(query).then(results => {
+        if(results.length > 0){
+          this.setState({
+            books: results
+          })
         }
-    })
+      })
+    } else {
+      this.setState({ books: []})
+    }
   }
 
   // function sets current shelf value as active on the dropdown if the book has one already
