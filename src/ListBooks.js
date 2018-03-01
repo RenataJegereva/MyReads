@@ -5,11 +5,16 @@ import PropTypes from 'prop-types'
 
 // ListBooks is a functional component and not a class
 class ListBooks extends React.Component {
+  state = {
+    shelfNames: ['currentlyReading', 'wantToRead', 'read']
+  }
+
   static propTypes = {
     books: PropTypes.array.isRequired,
     onChangeShelf: PropTypes.func.isRequired
   }
 
+  // returns the corresponding html title for each shelf
   shelfTitle(shelfName) {
     switch(shelfName) {
       case 'currentlyReading':
@@ -25,7 +30,7 @@ class ListBooks extends React.Component {
 
   render() {
     const {books, onChangeShelf} =  this.props
-    const shelfNames = ['currentlyReading', 'wantToRead', 'read']
+    const {shelfNames} = this.state
 
     return(
         <div className="list-books">
@@ -34,6 +39,8 @@ class ListBooks extends React.Component {
             </div>
 
             <div className="list-books-content">
+              {/* shelf names are received from state ;
+               corresponding shelf title is set based on the output of shelfTitle() */}
               {shelfNames.map((shelfName, i) => (
                 <div className="bookshelf" key={i}>
                     <h2 className="bookshelf-title">

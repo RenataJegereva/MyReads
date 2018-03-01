@@ -38,11 +38,11 @@ class Search extends Component {
   // function sets current shelf value as active on the dropdown if the book has one already
   // it matches books from the shelves (received via props) to the books from the search results
   // a shelf name is returned for the matching books, otherwise the shelf is set to 'none'
- getExistingShelf = (book) => {
+getExistingShelf = (book) => {
    const searchBookID = book.id
    const shelf = this.props.booksOnShelves.find(book => book.id === searchBookID )
    return shelf !== undefined ? shelf.shelf : 'none'
-  }
+}
 
   render() {
     const {books, query, message} = this.state
